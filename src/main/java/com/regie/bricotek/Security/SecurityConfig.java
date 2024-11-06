@@ -44,10 +44,13 @@ public class SecurityConfig {
                         "/configuration/security",
                         "/swagger-ui/**",
                         "/webjars/**",
-                        "/swagger-ui.html"
-                ).permitAll())
+                        "/swagger-ui.html",
+                        "/users/getUsers"
+                ).permitAll()
+                        //.requestMatchers("/users/getUsers")
+                        //.authenticated()
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        //houni staamlna token
         ;
         return http.build();
     }
