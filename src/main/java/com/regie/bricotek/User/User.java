@@ -1,5 +1,7 @@
 package com.regie.bricotek.User;
 
+import com.regie.bricotek.entities.Outil;
+import com.regie.bricotek.entities.Pret.Pret;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -14,6 +16,8 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -41,7 +45,8 @@ public class User implements UserDetails, Principal {
     private boolean enabled;
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth=new Date();
-
+    @OneToMany(mappedBy = "user")
+    private Set<Pret> prets;
 
     @Override
     public String getName() {
@@ -91,4 +96,5 @@ public class User implements UserDetails, Principal {
     private String fullName(){
         return nom+" "+prenom;
     }
+
 }
