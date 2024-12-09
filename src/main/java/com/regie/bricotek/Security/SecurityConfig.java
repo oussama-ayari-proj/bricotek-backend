@@ -45,7 +45,8 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html",
-                        "/users/getUsers"
+                        "/users/getUsers",
+                        "/**"
                 ).permitAll()
                         //.requestMatchers("/users/getUsers")
                         //.authenticated()

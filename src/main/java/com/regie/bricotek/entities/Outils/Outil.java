@@ -1,12 +1,10 @@
-package com.regie.bricotek.entities;
+package com.regie.bricotek.entities.Outils;
 
-import com.regie.bricotek.User.User;
 import com.regie.bricotek.entities.Pret.Pret;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -25,7 +23,7 @@ public class Outil {
     private String codeABarre;
     private String imgPath;
     private String videoPath;
-    private boolean maintenance;
+    private boolean etat;
     private String nom;
     @Enumerated(EnumType.STRING)
     private CategorieOutils categorieOutils;

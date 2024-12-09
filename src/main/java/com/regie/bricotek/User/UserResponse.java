@@ -17,6 +17,7 @@ public class UserResponse {
     private Date dateOfBirth;
     private String email;
     private String addresse;
+    private boolean cotisation;
     private String numAdh;
     private String numTel;
     private Role role;
@@ -31,8 +32,8 @@ public class UserResponse {
                 .dateOfBirth(user.getDateOfBirth())
                 .email(user.getEmail())
                 .addresse(user.getAddresse())
-                .numAdh(user.getNumAdh())
                 .numTel(user.getNumTel())
+                .cotisation(user.isCotisation())
                 .role(user.getRole())
                 .enabled(user.isEnabled())
                 .build();

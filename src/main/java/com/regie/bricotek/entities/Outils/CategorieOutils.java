@@ -1,4 +1,4 @@
-package com.regie.bricotek.entities;
+package com.regie.bricotek.entities.Outils;
 
 public enum CategorieOutils {
     CAT1,

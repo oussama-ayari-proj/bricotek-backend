@@ -31,7 +31,6 @@ public class RegistrationRequest {
     private String email;
     @NotEmpty(message = "Password est obligatoire")
     @NotNull(message = "Password est obligatoire")
-    @Size(min = 8, message = "Password doit comporter 8 characters minimum")
     private String password;
     private String adresse;
     private String numTel;
