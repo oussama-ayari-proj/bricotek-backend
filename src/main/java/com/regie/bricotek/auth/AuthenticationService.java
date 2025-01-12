@@ -18,6 +18,23 @@ public class AuthenticationService {
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+
+    public void modifyUser(Integer id,RegistrationRequest request){
+        if(userRepository.findByUserId(id).isPresent()){
+            User user=userRepository.findByUserId(id).get();
+            user.setAddresse(request.getAdresse());
+            user.setNom(request.getNom());
+            user.setEmail(request.getEmail());
+            user.setPrenom(request.getPrenom());
+            user.setNumTel(request.getNumTel());
+            user.setDateOfBirth(request.getDateOfBirth());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            user.setEnabled(true);
+            user.setRole(user.getRole());
+            user.setCotisation(request.getCotisation());
+            userRepository.save(user);
+        }
+    }
     public void register(RegistrationRequest request) throws MessagingException {
         var user= User.builder()
                 .email(request.getEmail())
@@ -29,9 +46,9 @@ public class AuthenticationService {
                 .numTel(request.getNumTel())
                 .enabled(true)
                 .dateOfBirth(request.getDateOfBirth())
+                .cotisation(request.getCotisation())
                 .build();
-
-        userRepository.save(user);//je le met dans la base
+        userRepository.save(user);
         //send validation email
         sendValidationEmail(user,request.getPassword(),user.getUserId());
     }

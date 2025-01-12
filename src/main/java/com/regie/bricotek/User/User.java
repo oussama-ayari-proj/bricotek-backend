@@ -1,5 +1,6 @@
 package com.regie.bricotek.User;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.regie.bricotek.entities.Pret.Pret;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -39,8 +41,7 @@ public class User implements UserDetails, Principal {
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean enabled;
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth=new Date();
+    private LocalDateTime dateOfBirth;
     @OneToMany(mappedBy = "user")
     private Set<Pret> prets;
 

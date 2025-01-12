@@ -28,7 +28,7 @@ public class Pret {
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outilId")
     private Outil outil;
 }

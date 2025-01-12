@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -14,7 +15,7 @@ public class UserResponse {
     private Integer userId;
     private String nom;
     private String prenom;
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
     private String email;
     private String addresse;
     private boolean cotisation;

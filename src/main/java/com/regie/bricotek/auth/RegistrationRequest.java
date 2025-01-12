@@ -1,10 +1,7 @@
 package com.regie.bricotek.auth;
 
 import com.regie.bricotek.User.Role;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -34,8 +32,8 @@ public class RegistrationRequest {
     private String password;
     private String adresse;
     private String numTel;
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private Boolean cotisation;
 }
