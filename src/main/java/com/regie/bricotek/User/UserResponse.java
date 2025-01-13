@@ -34,10 +34,9 @@ public class UserResponse {
                 .email(user.getEmail())
                 .addresse(user.getAddresse())
                 .numTel(user.getNumTel())
-                .cotisation(user.isCotisation())
+                .cotisation(user.getCotisation())
                 .role(user.getRole())
                 .enabled(user.isEnabled())
                 .build();
     }
-
 }

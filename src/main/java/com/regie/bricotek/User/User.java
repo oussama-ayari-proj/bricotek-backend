@@ -35,12 +35,13 @@ public class User implements UserDetails, Principal {
     private String email;
     private String password;
     @Column(columnDefinition = "boolean default false")
-    private boolean cotisation;
+    private Boolean cotisation;
     private String addresse;
     private String numTel;
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean enabled;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateOfBirth;
     @OneToMany(mappedBy = "user")
     private Set<Pret> prets;

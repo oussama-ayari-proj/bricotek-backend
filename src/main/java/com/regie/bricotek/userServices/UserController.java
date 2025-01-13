@@ -34,4 +34,8 @@ public class UserController {
         authenticationService.modifyUser(id,request);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("userById")
+    public ResponseEntity<?> getUserById(Integer id){
+        return ResponseEntity.ok(authenticationService.getUserById(id));
+    }
 }

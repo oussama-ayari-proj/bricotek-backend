@@ -36,6 +36,7 @@ public class AuthenticationService {
         }
     }
     public void register(RegistrationRequest request) throws MessagingException {
+        System.out.println(request.getDateOfBirth());
         var user= User.builder()
                 .email(request.getEmail())
                 .nom(request.getNom())
@@ -88,5 +89,23 @@ public class AuthenticationService {
         User user=userRepository.findByEmail(email).orElseThrow(()-> new SecurityException("User not found !"));
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    public RegistrationRequest getUserById(Integer id) {
+        if(userRepository.findByUserId(id).isPresent()){
+            User user =userRepository.findByUserId(id).get();
+            return RegistrationRequest
+                    .builder()
+                    .email(user.getEmail())
+                    .nom(user.getNom())
+                    .prenom(user.getPrenom())
+                    .adresse(user.getAddresse())
+                    .cotisation(user.getCotisation())
+                    .role(user.getRole())
+                    .dateOfBirth(user.getDateOfBirth())
+                    .numTel(user.getNumTel())
+                    .build();
+        }
+        return RegistrationRequest.builder().build();
     }
 }
