@@ -8,8 +8,10 @@ import lombok.Setter;
 @Setter
 @Builder
 public class OutilResponse {
-    private Long outilId;
+    private String outilId;
     private String videoPath;
+    private String marque;
+    private String code_rangement;
     private boolean etat;
     private String nom;
     private Long image;

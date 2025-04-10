@@ -1,5 +1,6 @@
 package com.regie.bricotek.entities.Outils;
 
+import com.regie.bricotek.User.IdGenerator;
 import com.regie.bricotek.entities.Pret.Pret;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,12 +20,19 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 public class Outil {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long outilId;
+    private String outilId;
+    @PrePersist
+    public void generateCustomId() {
+        if (this.outilId == null) {
+            this.outilId = IdGenerator.generateNextOutilId();
+        }
+    }
     private String imgPath;
     private String videoPath;
     private boolean etat;
     private String nom;
+    private String marque;
+    private String codeRangement;
     @Enumerated(EnumType.STRING)
     private CategorieOutils categorieOutils;
     @OneToMany(mappedBy = "outil",fetch = FetchType.LAZY)

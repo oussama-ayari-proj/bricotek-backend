@@ -25,17 +25,17 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsers());
     }
     @DeleteMapping("deleteUser")
-    public ResponseEntity<?> deleteUser(Integer id){
+    public ResponseEntity<?> deleteUser(String id){
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
     @PutMapping("modifyUser")
-    public ResponseEntity<?> modifyUser(Integer id,RegistrationRequest request){
+    public ResponseEntity<?> modifyUser(String id,RegistrationRequest request){
         authenticationService.modifyUser(id,request);
         return ResponseEntity.ok().build();
     }
     @GetMapping("userById")
-    public ResponseEntity<?> getUserById(Integer id){
+    public ResponseEntity<?> getUserById(String id){
         return ResponseEntity.ok(authenticationService.getUserById(id));
     }
 }

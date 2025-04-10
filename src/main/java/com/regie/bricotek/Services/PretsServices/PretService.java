@@ -4,12 +4,15 @@ import com.regie.bricotek.User.User;
 import com.regie.bricotek.User.UserRepository;
 import com.regie.bricotek.entities.Outils.Outil;
 import com.regie.bricotek.entities.Outils.OutilRepository;
+import com.regie.bricotek.entities.Pret.Etat;
 import com.regie.bricotek.entities.Pret.Pret;
 import com.regie.bricotek.entities.Pret.PretRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,18 +30,40 @@ public class PretService {
         return pretRepository.findAll();
     }
 
-    public void add(Long outilId, Integer userId, Date dateRetour) {
-        User user = userRepository.findById(userId)
+    public void add(String outilId, String userId, LocalDate dateRetour) {
+        User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Outil outils = outilRepository.findById(outilId)
+        Outil outil = outilRepository.findById(outilId)
                 .orElseThrow(() -> new RuntimeException("Outils not found"));
-        outils.setEtat(false);
+        outil.setEtat(false);
         Pret prets = new Pret();
         prets.setUser(user);
-        prets.setOutil(outils);
+        prets.setOutil(outil);
         prets.setDateRetour(dateRetour);
-
+        prets.setDateDemande(LocalDateTime.now());
+        prets.setEtat(Etat.ATTENTE);
         pretRepository.save(prets);
+    }
+
+    public void valider(Integer pretId){
+        Pret pret=pretRepository.findById(pretId).get();
+        pret.setEtat(Etat.CONFIRME);
+        pretRepository.save(pret);
+    }
+
+    public void refuser(Integer pretId){
+        Pret pret=pretRepository.findById(pretId).get();
+        pret.setEtat(Etat.REFUSE);
+        pretRepository.save(pret);
+    }
+    public void delete(Integer pretId){
+        pretRepository.deleteById(pretId);
+    }
+
+    public void attente(Integer pretId) {
+        Pret pret=pretRepository.findById(pretId).get();
+        pret.setEtat(Etat.ATTENTE);
+        pretRepository.save(pret);
     }
 }

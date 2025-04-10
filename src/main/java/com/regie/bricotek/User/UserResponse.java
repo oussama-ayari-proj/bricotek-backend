@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -12,10 +13,11 @@ import java.util.Date;
 @Setter
 @Builder
 public class UserResponse {
-    private Integer userId;
+    private String userId;
     private String nom;
     private String prenom;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateAdh;
+    private LocalDate dateFinAdh;
     private String email;
     private String addresse;
     private boolean cotisation;
@@ -30,7 +32,8 @@ public class UserResponse {
                 .userId(user.getUserId())
                 .nom(user.getNom())
                 .prenom(user.getPrenom())
-                .dateOfBirth(user.getDateOfBirth())
+                .dateAdh(user.getDateAdh())
+                .dateFinAdh(user.getDateFinAdh())
                 .email(user.getEmail())
                 .addresse(user.getAddresse())
                 .numTel(user.getNumTel())

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
@@ -24,11 +25,20 @@ import java.util.Set;
 @Table(name = "utilisateur")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
-    @Id
+    /*@Id
     @SequenceGenerator(name = "EntityTwoSequence", initialValue = 1000)
     @GeneratedValue(generator = "EntityTwoSequence")
     @Column(name = "numAdh")
-    private Integer userId;
+    private Integer userId;*/
+    @Id
+    @Column(name = "numAdh")
+    private String userId;
+    @PrePersist
+    public void generateCustomId() {
+        if (this.userId == null) {
+            this.userId = IdGenerator.generateNextId();
+        }
+    }
     private String nom;
     private String prenom;
     @Column(unique = true)
@@ -41,8 +51,8 @@ public class User implements UserDetails, Principal {
     @Enumerated(EnumType.STRING)
     private Role role;
     private boolean enabled;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateFinAdh;
+    private LocalDate dateAdh;
     @OneToMany(mappedBy = "user")
     private Set<Pret> prets;
 

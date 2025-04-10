@@ -19,7 +19,7 @@ public class UserService {
         return userRepository.findAll().stream().map(UserResponse::fromEntity).toList();
     }
 
-    public void deleteUser(Integer id){
+    public void deleteUser(String id){
         if(userRepository.findByUserId(id).isPresent()){
             User user = userRepository.findByUserId(id).get();
             System.out.println(user.getEmail());

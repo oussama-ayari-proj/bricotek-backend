@@ -21,8 +21,8 @@ public class OutilsService {
         return outilRepository.findAll();
     }
 
-    public void deleteOutil(Long outilId){ outilRepository.deleteById(outilId);}
-    public void modify(Long outilId,Outil outil){
+    public void deleteOutil(String outilId){ outilRepository.deleteById(outilId);}
+    public void modify(String outilId,Outil outil){
         Outil outil1=outilRepository.findByOutilId(outilId).get();
         outil1.setImageData(outil.getImageData());
         outil1.setCategorieOutils(outil.getCategorieOutils());
@@ -32,7 +32,7 @@ public class OutilsService {
         outil1.setVideoPath(outil.getVideoPath());
         outilRepository.save(outil1);
     }
-    public Outil getOutilById(Long outilsId){
+    public Outil getOutilById(String outilsId){
         return outilRepository.findByOutilId(outilsId).get();
     }
 }

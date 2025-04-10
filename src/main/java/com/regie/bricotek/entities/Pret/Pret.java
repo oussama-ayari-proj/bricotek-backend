@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -22,7 +24,9 @@ public class Pret {
     private Integer pretId;
 
     @Temporal(TemporalType.DATE)
-    private Date dateRetour=new Date();
+    private LocalDate dateRetour;
+
+    private LocalDateTime dateDemande;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -31,4 +35,7 @@ public class Pret {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outilId")
     private Outil outil;
+
+    @Enumerated(EnumType.STRING)
+    private Etat etat;
 }

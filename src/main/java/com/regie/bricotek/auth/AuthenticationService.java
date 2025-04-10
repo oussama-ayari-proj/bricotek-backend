@@ -19,7 +19,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    public void modifyUser(Integer id,RegistrationRequest request){
+    public void modifyUser(String id,RegistrationRequest request){
         if(userRepository.findByUserId(id).isPresent()){
             User user=userRepository.findByUserId(id).get();
             user.setAddresse(request.getAdresse());
@@ -27,7 +27,8 @@ public class AuthenticationService {
             user.setEmail(request.getEmail());
             user.setPrenom(request.getPrenom());
             user.setNumTel(request.getNumTel());
-            user.setDateOfBirth(request.getDateOfBirth());
+            user.setDateAdh(request.getDateAdh());
+            user.setDateFinAdh(request.getDateFinAdh());
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setEnabled(true);
             user.setRole(user.getRole());
@@ -36,7 +37,8 @@ public class AuthenticationService {
         }
     }
     public void register(RegistrationRequest request) throws MessagingException {
-        System.out.println(request.getDateOfBirth());
+        System.out.println(request.getDateAdh());
+        System.out.println(request.getDateFinAdh());
         var user= User.builder()
                 .email(request.getEmail())
                 .nom(request.getNom())
@@ -46,7 +48,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .numTel(request.getNumTel())
                 .enabled(true)
-                .dateOfBirth(request.getDateOfBirth())
+                .dateAdh(request.getDateAdh())
+                .dateFinAdh(request.getDateFinAdh())
                 .cotisation(request.getCotisation())
                 .build();
         userRepository.save(user);
@@ -54,7 +57,7 @@ public class AuthenticationService {
         sendValidationEmail(user,request.getPassword(),user.getUserId());
     }
 
-    private void sendValidationEmail(User user, String plainPass, Integer userId) throws MessagingException {
+    private void sendValidationEmail(User user, String plainPass, String userId) throws MessagingException {
         //send mail logic
         emailService.sendValidationEmail(user.getEmail(),plainPass,userId);
     }
@@ -64,8 +67,8 @@ public class AuthenticationService {
         User user;
         if(userRepository.findByEmail(email).isPresent()){
             user=userRepository.findByEmail(email).get();
-        }else if(userRepository.findByUserId(Integer.valueOf(email)).isPresent()){
-            user=userRepository.findByUserId(Integer.valueOf(email)).get();
+        }else if(userRepository.findByUserId(email).isPresent()){
+            user=userRepository.findByUserId(email).get();
         }else return AuthenticationResponse.builder()
                 .token("Wrong email or numAdh!")
                 .build();
@@ -91,7 +94,7 @@ public class AuthenticationService {
         userRepository.save(user);
     }
 
-    public RegistrationRequest getUserById(Integer id) {
+    public RegistrationRequest getUserById(String id) {
         if(userRepository.findByUserId(id).isPresent()){
             User user =userRepository.findByUserId(id).get();
             return RegistrationRequest
@@ -102,7 +105,6 @@ public class AuthenticationService {
                     .adresse(user.getAddresse())
                     .cotisation(user.getCotisation())
                     .role(user.getRole())
-                    .dateOfBirth(user.getDateOfBirth())
                     .numTel(user.getNumTel())
                     .build();
         }

@@ -1,5 +1,6 @@
 package com.regie.bricotek.auth;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.regie.bricotek.User.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -32,7 +34,10 @@ public class RegistrationRequest {
     private String password;
     private String adresse;
     private String numTel;
-    private LocalDateTime dateOfBirth;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateFinAdh;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateAdh;
     @Enumerated(EnumType.STRING)
     private Role role;
     private Boolean cotisation;

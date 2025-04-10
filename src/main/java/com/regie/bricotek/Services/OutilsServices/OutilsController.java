@@ -31,7 +31,7 @@ public class OutilsController {
     @PostMapping(value = "addimage",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> uploadImage(
             @RequestParam("image") MultipartFile file
-            ,@RequestParam("outil_id") Long outilId
+            ,@RequestParam("outil_id") String outilId
             ) throws IOException {
         Outil outil = outilRepository.findByOutilId(outilId).get();
         System.out.println(outil.getImageData());
@@ -52,8 +52,11 @@ public class OutilsController {
     @PostMapping(value = "addOutil")
     public ResponseEntity<?> addOutil(Outil outil){
         Outil outil1=outilsService.addOutil(outil);
+        System.out.println(outil1.getOutilId());
         return ResponseEntity.status(HttpStatus.OK).body(
-                outil1.getOutilId()
+                Outil_Img.builder()
+                        .outilId(outil1.getOutilId())
+                        .build()
         );
     }
     @GetMapping("allOutils") ResponseEntity<?> getAllOutils(){
@@ -96,7 +99,7 @@ public class OutilsController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteOutil(Long outilId){
+    public ResponseEntity<?> deleteOutil(String outilId){
         try{
             outilsService.deleteOutil(outilId);
         }catch (Exception e){
@@ -108,13 +111,13 @@ public class OutilsController {
     }
 
     @PutMapping(value = "modifyOutil")
-    public ResponseEntity<?> modifyOutil(Long outilsId,Outil outil){
+    public ResponseEntity<?> modifyOutil(String outilsId,Outil outil){
         outilsService.modify(outilsId,outil);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping(value = "outilById")
-    public ResponseEntity<?> getById(Long outilsId){
+    public ResponseEntity<?> getById(String outilsId){
         Outil outil=outilsService.getOutilById(outilsId);
         if(outil.getImageData()!=null){
             return ResponseEntity.status(HttpStatus.OK).body(

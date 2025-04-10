@@ -11,5 +11,7 @@ public class PretResponse {
     private Integer pretId;
     private String user;
     private String outil;
+    private String etat;
     private String dateRetour;
+    private String dateDemande;
 }

@@ -16,7 +16,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class EmailService {
     @Autowired
     private JavaMailSender emailSender;
-    public void sendValidationEmail(String email, String pass, Integer userId) throws MessagingException {
+    public void sendValidationEmail(String email, String pass, String userId) throws MessagingException {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("oussema.ayari2001@gmail.com");
         message.setTo(email);
