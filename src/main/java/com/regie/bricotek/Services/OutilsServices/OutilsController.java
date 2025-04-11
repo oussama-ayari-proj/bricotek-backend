@@ -69,6 +69,7 @@ public class OutilsController {
                                 .etat(outil.isEtat())
                                 .image(outil.getImageData().getId())
                                 .nom(outil.getNom())
+                                .marque(outil.getMarque())
                                 .videoPath(outil.getVideoPath())
                                 .outilId(outil.getOutilId())
                                 .categorieOutils(outil.getCategorieOutils())
